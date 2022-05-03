@@ -1,0 +1,27 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+fail_fast: true
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v3.2.0
+    hooks:
+      - id: check-added-large-files
+      - id: check-yaml
+      - id: end-of-file-fixer
+        exclude: tests/test_changes/
+        files: \.(py|sh|rst|yml|yaml)$
+      - id: mixed-line-ending
+      - id: trailing-whitespace
+        files: \.(py|sh|rst|yml|yaml)$
+  - repo: https://github.com/ambv/black
+    rev: 22.3.0
+    hooks:
+      - id: black
+        args: [--diff, --check]
+
+  - repo: https://github.com/pre-commit/mirrors-pylint
+    rev: v3.0.0a3
+    hooks:
+      - id: pylint
+        args: [--disable=all, --enable=unused-import]
