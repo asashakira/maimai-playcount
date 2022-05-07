@@ -21,6 +21,17 @@ def get_play_count(driver) -> int:
     return int(plays)
 
 
+def get_rating(driver) -> int:
+    # jump to player data page
+    driver.get("https://maimaidx.jp/maimai-mobile/playerData/")
+
+    # get rating
+    e = driver.find_element(By.CLASS_NAME, "rating_block")
+    rating = e.get_attribute("innerHTML")
+
+    return int(rating)
+
+
 def main() -> None:
     chromedriver_autoinstaller.install()
 
@@ -50,7 +61,8 @@ def main() -> None:
         return
 
     play_count = get_play_count(driver)
-    print(play_count)
+    rating = get_rating(driver)
+    print(rating)
 
     driver.quit()
 
