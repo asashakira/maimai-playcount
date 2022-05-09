@@ -24,7 +24,7 @@ def get_ac_rate(ac_rate) -> float:
 
 def get_date(date) -> str:
     date = date.get_attribute("innerHTML")
-    print(date)
+    return date
 
 
 def get_play_history(driver) -> list:
@@ -33,7 +33,7 @@ def get_play_history(driver) -> list:
     song_names = driver.find_elements(By.CLASS_NAME, "break")
     ac_rates = driver.find_elements(By.CLASS_NAME, "playlog_achievement_txt")
     dates = driver.find_elements(
-        By.XPATH, "//div[@class='playlog_top_container']/[@class='subtitle']/span[1]"
+        By.XPATH, "//div[@class='playlog_top_container']/div[1]/span[2]"
     )
 
     history_size = len(song_names)
@@ -47,7 +47,7 @@ def get_play_history(driver) -> list:
             }
         )
 
-    # for song in history:
-    # print(song['name'], song['date'])
+    for song in history:
+        print(song["name"], song["date"])
 
     return history
