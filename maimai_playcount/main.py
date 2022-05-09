@@ -32,6 +32,34 @@ def get_rating(driver) -> int:
     return int(rating)
 
 
+def get_play_history(driver) -> list:
+    driver.get("https://maimaidx.jp/maimai-mobile/record/")
+    song_names = driver.find_elements(By.CLASS_NAME, "break")
+    ac_rates = driver.find_elements(By.CLASS_NAME, "playlog_achievement_txt")
+
+    history_size = len(song_names)
+    history = []
+    for i in range(history_size):
+        song_name = song_names[i].get_attribute("innerHTML")
+        song_name = song_name.split(">")[1]
+        ac_rate = ac_rates[i].get_attribute("innerHTML")
+        ac_rate = ac_rate.split("<")
+        a = ac_rate[0]
+        b = ac_rate[1].split(">")[1]
+        ac_rate = (a + b).split("%")[0]
+        history.append(
+            {
+                "name": song_name,
+                "ac": ac_rate,
+            }
+        )
+
+    for song in history:
+        print(song["name"], song["ac"])
+
+    return history
+
+
 def main() -> None:
     chromedriver_autoinstaller.install()
 
@@ -60,9 +88,9 @@ def main() -> None:
         print("Login Error")
         return
 
-    play_count = get_play_count(driver)
-    rating = get_rating(driver)
-    print(rating)
+    # play_count = get_play_count(driver)
+    # rating = get_rating(driver)
+    get_play_history(driver)
 
     driver.quit()
 
