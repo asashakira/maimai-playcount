@@ -5,7 +5,8 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
-from .history import get_play_history
+#  from .history import get_play_history
+from .playcount import get_play_count
 
 
 def main() -> None:
@@ -34,9 +35,10 @@ def main() -> None:
         print("Login Error")
         return
 
-    # play_count = get_play_count(driver)
-    # rating = get_rating(driver)
-    get_play_history(driver)
+    play_count = get_play_count(driver)
+    #  rating = get_rating(driver)
+    #  get_play_history(driver)
+    print(play_count)
 
     driver.quit()
 
