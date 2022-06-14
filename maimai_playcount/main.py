@@ -6,10 +6,13 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
 #  from .history import get_play_history
+from .store_play_count import store_play_count
 from .playcount import get_play_count
 
 
 def main() -> None:
+    store_play_count(20)
+    return
     chromedriver_autoinstaller.install()
 
     sega_id = input("SEGA ID: ")
