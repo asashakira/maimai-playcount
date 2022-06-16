@@ -5,14 +5,11 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
-#  from .history import get_play_history
-from .store_play_count import store_play_count
-from .playcount import get_play_count
+from .store_playcount import store_playcount
+from .playcount import get_playcount
 
 
 def main() -> None:
-    store_play_count(20)
-    return
     chromedriver_autoinstaller.install()
 
     # sega_id = input("SEGA ID: ")
@@ -40,10 +37,9 @@ def main() -> None:
         print("Login Error")
         return
 
-    play_count = get_play_count(driver)
-    #  rating = get_rating(driver)
-    #  get_play_history(driver)
-    print(play_count)
+    playcount = get_playcount(driver)
+    store_playcount(playcount)
+    print(playcount)
 
     driver.quit()
 

@@ -3,7 +3,7 @@
 from selenium.webdriver.common.by import By
 
 
-def get_play_count(driver) -> int:
+def get_playcount(driver) -> int:
     # jump to player data page
     driver.get("https://maimaidx.jp/maimai-mobile/playerData/")
 
