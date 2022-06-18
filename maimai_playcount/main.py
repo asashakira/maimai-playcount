@@ -1,45 +1,45 @@
 """ docstring """
 
-import chromedriver_autoinstaller
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
+import csv
+from datetime import date
 
-from .store_playcount import store_playcount
 from .playcount import get_playcount
+
+FILE_NAME = "playcount.csv"
 
 
 def main() -> None:
-    chromedriver_autoinstaller.install()
+    today = str(date.today())
 
+<<<<<<< HEAD
     sega_id = input("SEGA ID: ")
     password = input("PASSWORD: ")
+=======
+    with open(FILE_NAME, "r+") as f:
+        reader = csv.reader(f)
+>>>>>>> 173b4bf (refactor)
 
-    driver = webdriver.Chrome()
-    driver.get("https://maimaidx.jp/maimai-mobile/")
+        l = [row for row in reader]
+        [yesturday, total_playcount_yesturday] = l[-1]
 
-    # login
-    try:
-        # enter segaid
-        e = driver.find_element(By.NAME, "segaId")
-        e.send_keys(sega_id)
-        # enter password
-        e = driver.find_element(By.NAME, "password")
-        e.send_keys(password)
-        # press enter
-        e.send_keys(Keys.RETURN)
-        # click aime login
-        button = driver.find_element(By.CLASS_NAME, "h_55")
-        button.click()
-    except:
-        print("Login Error")
-        return
+        # don't write if today is written
+        if yesturday == today:
+            [yesturday, total_playcount_yesturday] = l[-2]
+            [today, total_playcount_today] = l[-1]
+            playcount = int(total_playcount_today) - int(total_playcount_yesturday)
+            print(f"You played {playcount} times today.")
+            return
 
-    playcount = get_playcount(driver)
-    store_playcount(playcount)
-    print(playcount)
+        [yesturday, total_playcount_yesturday] = l[-2]
+        total_playcount = get_playcount()
+        data = [today, total_playcount]
+        playcount = total_playcount - int(total_playcount_yesturday)
 
-    driver.quit()
+        writer = csv.writer(f)
+        writer.writerow(data)
+
+        print(f"Data Written to {FILE_NAME}")
+        print(f"You played {playcount} times today.")
 
 
 if __name__ == "__main__":
