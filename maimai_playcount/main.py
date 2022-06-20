@@ -5,10 +5,15 @@ from datetime import date
 
 from .playcount import get_playcount
 
+from .tweeter import Tweeter
+
 FILE_NAME = "playcount.csv"
 
 
 def main() -> None:
+    tw = Tweeter()
+    return
+
     today = str(date.today())
 
     with open(FILE_NAME, "r+") as f:
