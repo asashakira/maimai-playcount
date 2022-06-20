@@ -2,13 +2,17 @@
 
 import csv
 from datetime import date
+import os
 
 from .playcount import get_playcount
+from .tweeter import Tweeter
 
-FILE_NAME = "playcount.csv"
+FILE_NAME = os.path.expanduser("~/playcount.csv")
 
 
 def main() -> None:
+    tw = Tweeter()
+
     today = str(date.today())
 
     with open(FILE_NAME, "r+", encoding="utf-8") as f:
@@ -22,18 +26,21 @@ def main() -> None:
             [yesturday, total_playcount_yesturday] = l[-2]
             [today, total_playcount_today] = l[-1]
             playcount = int(total_playcount_today) - int(total_playcount_yesturday)
-            print(f"You played {playcount} times today.")
-            return
 
-        total_playcount = get_playcount()
-        data = [today, total_playcount]
-        playcount = total_playcount - int(total_playcount_yesturday)
+        else:
+            total_playcount = get_playcount()
+            data = [today, total_playcount]
+            playcount = total_playcount - int(total_playcount_yesturday)
 
-        writer = csv.writer(f)
-        writer.writerow(data)
+            writer = csv.writer(f)
+            writer.writerow(data)
 
-        print(f"Data Written to {FILE_NAME}")
-        print(f"You played {playcount} times today.")
+            print(f"Data Written to {FILE_NAME}")
+
+        # print(f"You played {playcount} times on {today}.")
+        print(f"{today} の maimai プレイ数: {playcount}")
+
+        tw.run(f"{today} の maimai プレイ数: {playcount}")
 
 
 if __name__ == "__main__":
