@@ -1,8 +1,11 @@
 [tool.poetry]
 name = "maimai-playcount"
 version = "0.1.0"
-description = ""
+description = "money wasted on maimai today"
 authors = ["akira <asa.shakira340@gmail.com>"]
+
+[tool.poetry.scripts]
+playcount = "maimai_playcount.main:main"
 
 [tool.poetry.dependencies]
 python = "^3.10"

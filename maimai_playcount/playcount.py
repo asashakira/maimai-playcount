@@ -1,9 +1,11 @@
 """ gets play count """
 
-import chromedriver_autoinstaller
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.common.exceptions import NoSuchElementException
+
+import chromedriver_autoinstaller
 
 
 def get_playcount() -> int:
@@ -30,9 +32,9 @@ def get_playcount() -> int:
         # click aime login
         button = driver.find_element(By.CLASS_NAME, "h_55")
         button.click()
-    except:
-        print("Login Error")
-        return
+    except NoSuchElementException as e:
+        print(e)
+        return -1
 
     # jump to player data page
     driver.get("https://maimaidx.jp/maimai-mobile/playerData/")
