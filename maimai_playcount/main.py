@@ -2,12 +2,11 @@
 
 import csv
 from datetime import date
-import os
 
 from .playcount import get_playcount
 from .tweeter import Tweeter
 
-FILE_NAME = os.path.expanduser("~/playcount.csv")
+FILE_NAME = "playcount.csv"
 
 
 def main() -> None:
