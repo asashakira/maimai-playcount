@@ -1,6 +1,8 @@
 name: Run Bot
 
 on:
+  schedule:
+    - cron: 0 16 * * * # at 16PM-UTC, 1AM-JST
   workflow_dispatch:
 
 jobs:

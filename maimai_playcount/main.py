@@ -1,7 +1,7 @@
 """ main """
 
 import csv
-from datetime import date
+from datetime import date, timedelta
 
 from .playcount import get_playcount
 from .tweeter import Tweeter
@@ -12,7 +12,8 @@ FILE_NAME = "playcount.csv"
 def main() -> None:
     tw = Tweeter()
 
-    today = str(date.today())
+    # technically not today since it's 1AM...
+    today = str(date.today() - timedelta(1))
 
     with open(FILE_NAME, "r+", encoding="utf-8") as f:
         reader = csv.reader(f)
