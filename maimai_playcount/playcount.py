@@ -1,11 +1,11 @@
 """ gets play count """
 
+import chromedriver_autoinstaller
 from selenium import webdriver
+from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-from selenium.common.exceptions import NoSuchElementException
-
-import chromedriver_autoinstaller
 
 
 def get_playcount() -> int:
@@ -14,7 +14,11 @@ def get_playcount() -> int:
     sega_id = input("SEGA ID: ")
     password = input("PASSWORD: ")
 
-    driver = webdriver.Chrome()
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    driver = webdriver.Chrome(chrome_options=chrome_options)
     driver.get("https://maimaidx.jp/maimai-mobile/")
 
     # login
