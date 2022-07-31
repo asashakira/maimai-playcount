@@ -1,5 +1,7 @@
 """ gets play count """
 
+import sys
+
 import chromedriver_autoinstaller
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
@@ -8,11 +10,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
 
-def get_playcount() -> int:
+def get_playcount(sega_id: str, sega_password: str) -> int:
     chromedriver_autoinstaller.install()
-
-    sega_id = input("SEGA ID: ")
-    password = input("PASSWORD: ")
 
     chrome_options = Options()
     chrome_options.add_argument("--headless")
@@ -28,15 +27,16 @@ def get_playcount() -> int:
         e.send_keys(sega_id)
         # enter password
         e = driver.find_element(By.NAME, "password")
-        e.send_keys(password)
+        e.send_keys(sega_password)
         # press enter
         e.send_keys(Keys.RETURN)
         # click aime login
         button = driver.find_element(By.CLASS_NAME, "h_55")
         button.click()
-    except NoSuchElementException as e:
-        print(e)
-        return -1
+    except NoSuchElementException:
+        print("LOGIN ERROR")
+        print("Did you set SEGA_ID and SEGA_PASSWORD environment variable?")
+        sys.exit(1)
 
     # jump to player data page
     driver.get("https://maimaidx.jp/maimai-mobile/playerData/")

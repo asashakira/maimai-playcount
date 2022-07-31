@@ -2,6 +2,7 @@
 
 import csv
 from datetime import date, timedelta
+import sys
 
 from .playcount import get_playcount
 from .tweeter import Tweeter
@@ -10,6 +11,15 @@ FILE_NAME = "playcount.csv"
 
 
 def main() -> None:
+    args = sys.argv[1:]
+
+    if len(args) < 2:
+        print("Usage: playcount <SEGA_ID> <PASSWORD>")
+        return
+
+    sega_id = args[0]
+    password = args[1]
+
     tw = Tweeter()
 
     # technically not today since it's 1AM...
@@ -28,7 +38,7 @@ def main() -> None:
             playcount = int(total_playcount_today) - int(total_playcount_yesturday)
 
         else:
-            total_playcount = get_playcount()
+            total_playcount = get_playcount(sega_id, password)
             data = [today, total_playcount]
             playcount = total_playcount - int(total_playcount_yesturday)
 

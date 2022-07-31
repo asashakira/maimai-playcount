@@ -13,6 +13,8 @@ jobs:
       CONSUMER_SECRET: ${{ secrets.CONSUMER_SECRET }}
       ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
       ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
+      SEGA_ID: ${{ secrets.SEGA_ID }}
+      SEGA_PASSWORD: ${{ secrets.SEGA_PASSWORD }}
       TZ: "Asia/Tokyo"
 
     steps:
@@ -38,7 +40,7 @@ jobs:
 
       - name: Run Bot
         run: |
-          poetry run playcount
+          poetry run playcount $SEGA_ID $SEGA_PASSWORD
 
       - name: Push
         run: |
