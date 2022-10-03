@@ -29,18 +29,18 @@ def main() -> None:
         reader = csv.reader(f)
 
         l = list(row for row in reader)
-        [yesturday, total_playcount_yesturday] = l[-1]
+        [yesterday, total_playcount_yesterday] = l[-1]
 
         # don't write if today is written
-        if yesturday == today:
-            [yesturday, total_playcount_yesturday] = l[-2]
+        if yesterday == today:
+            [yesterday, total_playcount_yesterday] = l[-2]
             [today, total_playcount_today] = l[-1]
-            playcount = int(total_playcount_today) - int(total_playcount_yesturday)
+            playcount = int(total_playcount_today) - int(total_playcount_yesterday)
 
         else:
             total_playcount = get_playcount(sega_id, password)
             data = [today, total_playcount]
-            playcount = total_playcount - int(total_playcount_yesturday)
+            playcount = total_playcount - int(total_playcount_yesterday)
 
             writer = csv.writer(f)
             writer.writerow(data)
@@ -50,8 +50,9 @@ def main() -> None:
         # print(f"You played {playcount} times on {today}.")
         print(f"{today} の maimai プレイ数: {playcount}")
 
-        response = tw.run(f"{today} の maimai プレイ数: {playcount}")
-        print(response)
+        if playcount > 0:
+            response = tw.run(f"{today} の maimai プレイ数: {playcount}")
+            print(response)
 
 
 if __name__ == "__main__":
