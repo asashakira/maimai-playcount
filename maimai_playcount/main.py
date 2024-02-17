@@ -51,7 +51,7 @@ def main() -> None:
         print(f"{today} の maimai プレイ数: {playcount}")
 
         if playcount > 0:
-            response = tw.run(f"{today} の maimai プレイ数: {playcount}")
+            # response = tw.run(f"{today} の maimai プレイ数: {playcount}")
             print(response)
 
 
