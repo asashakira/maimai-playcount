@@ -50,9 +50,9 @@ def main() -> None:
         # print(f"You played {playcount} times on {today}.")
         print(f"{today} の maimai プレイ数: {playcount}")
 
-        if playcount > 0:
+        # if playcount > 0:
             # response = tw.run(f"{today} の maimai プレイ数: {playcount}")
-            print(response)
+            # print(response)
 
 
 if __name__ == "__main__":
